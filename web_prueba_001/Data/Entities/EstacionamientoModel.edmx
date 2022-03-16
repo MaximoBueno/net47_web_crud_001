@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bd_estacionamientosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="autos_cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+          <Property Name="nro_placa" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="fecha_actualiza" Type="datetime" />
+          <Property Name="estado" Type="int" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="200" />
+          <Property Name="ap_paterno" Type="varchar" MaxLength="200" />
+          <Property Name="ap_materno" Type="varchar" MaxLength="200" />
+          <Property Name="nro_documento" Type="varchar" MaxLength="20" />
+          <Property Name="correo" Type="varchar" MaxLength="150" />
+          <Property Name="nro_contacto" Type="varchar" MaxLength="150" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="fecha_actualiza" Type="datetime" />
+          <Property Name="estado" Type="int" />
+        </EntityType>
+        <EntityType Name="estado_plaza">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="fecha_actualiza" Type="datetime" />
+          <Property Name="estado" Type="int" />
+        </EntityType>
+        <EntityType Name="plaza_autos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_autos_cliente" Type="int" Nullable="false" />
+          <Property Name="id_estado_plaza" Type="int" Nullable="false" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="fecha_actualiza" Type="datetime" />
+          <Property Name="estado" Type="int" />
+        </EntityType>
+        <Association Name="FK_id_autos_cliente_id">
+          <End Role="autos_cliente" Type="Self.autos_cliente" Multiplicity="1" />
+          <End Role="plaza_autos" Type="Self.plaza_autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autos_cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="plaza_autos">
+              <PropertyRef Name="id_autos_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_id_cliente_id">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+          <End Role="autos_cliente" Type="Self.autos_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="autos_cliente">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_id_estado_plaza_id">
+          <End Role="estado_plaza" Type="Self.estado_plaza" Multiplicity="1" />
+          <End Role="plaza_autos" Type="Self.plaza_autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estado_plaza">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="plaza_autos">
+              <PropertyRef Name="id_estado_plaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_estacionamientosModelStoreContainer">
+          <EntitySet Name="autos_cliente" EntityType="Self.autos_cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="estado_plaza" EntityType="Self.estado_plaza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="plaza_autos" EntityType="Self.plaza_autos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_id_autos_cliente_id" Association="Self.FK_id_autos_cliente_id">
+            <End Role="autos_cliente" EntitySet="autos_cliente" />
+            <End Role="plaza_autos" EntitySet="plaza_autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_id_cliente_id" Association="Self.FK_id_cliente_id">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="autos_cliente" EntitySet="autos_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_id_estado_plaza_id" Association="Self.FK_id_estado_plaza_id">
+            <End Role="estado_plaza" EntitySet="estado_plaza" />
+            <End Role="plaza_autos" EntitySet="plaza_autos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bd_estacionamientosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="autos_cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <Property Name="nro_placa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="fecha_actualiza" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="Int32" />
+          <NavigationProperty Name="plaza_autos" Relationship="Self.FK_id_autos_cliente_id" FromRole="autos_cliente" ToRole="plaza_autos" />
+          <NavigationProperty Name="clientes" Relationship="Self.FK_id_cliente_id" FromRole="autos_cliente" ToRole="clientes" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ap_paterno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ap_materno" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="nro_documento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nro_contacto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="fecha_actualiza" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="Int32" />
+          <NavigationProperty Name="autos_cliente" Relationship="Self.FK_id_cliente_id" FromRole="clientes" ToRole="autos_cliente" />
+        </EntityType>
+        <EntityType Name="estado_plaza">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="fecha_actualiza" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="Int32" />
+          <NavigationProperty Name="plaza_autos" Relationship="Self.FK_id_estado_plaza_id" FromRole="estado_plaza" ToRole="plaza_autos" />
+        </EntityType>
+        <EntityType Name="plaza_autos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_autos_cliente" Type="Int32" Nullable="false" />
+          <Property Name="id_estado_plaza" Type="Int32" Nullable="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="fecha_actualiza" Type="DateTime" Precision="3" />
+          <Property Name="estado" Type="Int32" />
+          <NavigationProperty Name="autos_cliente" Relationship="Self.FK_id_autos_cliente_id" FromRole="plaza_autos" ToRole="autos_cliente" />
+          <NavigationProperty Name="estado_plaza" Relationship="Self.FK_id_estado_plaza_id" FromRole="plaza_autos" ToRole="estado_plaza" />
+        </EntityType>
+        <Association Name="FK_id_autos_cliente_id">
+          <End Role="autos_cliente" Type="Self.autos_cliente" Multiplicity="1" />
+          <End Role="plaza_autos" Type="Self.plaza_autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autos_cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="plaza_autos">
+              <PropertyRef Name="id_autos_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_id_cliente_id">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="1" />
+          <End Role="autos_cliente" Type="Self.autos_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="autos_cliente">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_id_estado_plaza_id">
+          <End Role="estado_plaza" Type="Self.estado_plaza" Multiplicity="1" />
+          <End Role="plaza_autos" Type="Self.plaza_autos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estado_plaza">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="plaza_autos">
+              <PropertyRef Name="id_estado_plaza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_estacionamientosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="autos_cliente" EntityType="Self.autos_cliente" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" />
+          <EntitySet Name="estado_plaza" EntityType="Self.estado_plaza" />
+          <EntitySet Name="plaza_autos" EntityType="Self.plaza_autos" />
+          <AssociationSet Name="FK_id_autos_cliente_id" Association="Self.FK_id_autos_cliente_id">
+            <End Role="autos_cliente" EntitySet="autos_cliente" />
+            <End Role="plaza_autos" EntitySet="plaza_autos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_id_cliente_id" Association="Self.FK_id_cliente_id">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="autos_cliente" EntitySet="autos_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_id_estado_plaza_id" Association="Self.FK_id_estado_plaza_id">
+            <End Role="estado_plaza" EntitySet="estado_plaza" />
+            <End Role="plaza_autos" EntitySet="plaza_autos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bd_estacionamientosModelStoreContainer" CdmEntityContainer="bd_estacionamientosEntities">
+          <EntitySetMapping Name="autos_cliente">
+            <EntityTypeMapping TypeName="bd_estacionamientosModel.autos_cliente">
+              <MappingFragment StoreEntitySet="autos_cliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="nro_placa" ColumnName="nro_placa" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="fecha_actualiza" ColumnName="fecha_actualiza" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="bd_estacionamientosModel.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="ap_paterno" ColumnName="ap_paterno" />
+                <ScalarProperty Name="ap_materno" ColumnName="ap_materno" />
+                <ScalarProperty Name="nro_documento" ColumnName="nro_documento" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="nro_contacto" ColumnName="nro_contacto" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="fecha_actualiza" ColumnName="fecha_actualiza" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estado_plaza">
+            <EntityTypeMapping TypeName="bd_estacionamientosModel.estado_plaza">
+              <MappingFragment StoreEntitySet="estado_plaza">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="fecha_actualiza" ColumnName="fecha_actualiza" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="plaza_autos">
+            <EntityTypeMapping TypeName="bd_estacionamientosModel.plaza_autos">
+              <MappingFragment StoreEntitySet="plaza_autos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_autos_cliente" ColumnName="id_autos_cliente" />
+                <ScalarProperty Name="id_estado_plaza" ColumnName="id_estado_plaza" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="fecha_actualiza" ColumnName="fecha_actualiza" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
