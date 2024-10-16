@@ -1,2 +1,2 @@
-# net47_web_crud_001
-net47_web_crud_001
+# Crud con MVC Net
+Autor: Maximo Hugo Bueno Uribe.
